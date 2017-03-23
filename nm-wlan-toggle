@@ -1,11 +1,11 @@
 #!/bin/bash
 # just copy this script in /usr/bin
-if [ $(dbus-send --system --print-reply --dest=org.freedesktop.NetworkManager /org/freedesktop/NetworkManager org.freedesktop.DBus.Properties.Get string:org.freedesktop.NetworkManager string:WirelessEnabled|grep variant|sed 's/.*boolean //') == 'true' ]; then
+if [ $(dbus-send --system --print-reply --dest=org.freedesktop.NetworkManager /org/freedesktop/NetworkManager org.freedesktop.DBus.Properties.Get string:org.freedesktop.NetworkManager string:"WirelessEnabled" | grep variant | sed 's/.*boolean //') == 'true' ]; then
 	# disabling wlan0
-	notify-send --icon="/usr/share/icons/Faenza-Dark-CrunchBang/status/24/nm-no-connection.png" "WLAN-Interface" "WLAN-Interface wird abgeschaltet\!"
-	dbus-send --system --type=method_call --dest=org.freedesktop.NetworkManager /org/freedesktop/NetworkManager org.freedesktop.DBus.Properties.Set string:org.freedesktop.NetworkManager string:WirelessEnabled variant:boolean:false
+	notify-send --icon="/usr/share/icons/Lubuntu/panel/22/nm-no-connection.svg" "WLAN-Interface" "Wifi OFF\!"
+    dbus-send --system --print-reply --dest=org.freedesktop.NetworkManager /org/freedesktop/NetworkManager org.freedesktop.DBus.Properties.Set string:org.freedesktop.NetworkManager string:"WirelessEnabled" variant:boolean:false
 else
 	# enabling wlan0
-	notify-send --icon="/usr/share/icons/Faenza-Dark-CrunchBang/status/24/nm-device-wireless.png" "WLAN-Interface" "WLAN-Interface wird aktiviert\!"
-	dbus-send --system --type=method_call --dest=org.freedesktop.NetworkManager /org/freedesktop/NetworkManager org.freedesktop.DBus.Properties.Set string:org.freedesktop.NetworkManager string:WirelessEnabled variant:boolean:true
+	notify-send --icon="/usr/share/icons/Lubuntu/panel/22/nm-no-connection.svg" "WLAN-Interface" "Wifi ON\!"
+    dbus-send --system --print-reply --dest=org.freedesktop.NetworkManager /org/freedesktop/NetworkManager org.freedesktop.DBus.Properties.Set string:org.freedesktop.NetworkManager string:"WirelessEnabled" variant:boolean:true
 fi
